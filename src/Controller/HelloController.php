@@ -13,4 +13,11 @@ class HelloController extends AbstractController
     {
         return $this->render('base.html.twig');
     }
+
+    #[Route('/test', name: 'test')]
+public function test(): Response
+{
+    return new Response('Symfony работает!');
+}
+
 }
