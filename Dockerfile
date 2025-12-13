@@ -25,6 +25,6 @@ COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 8080
+EXPOSE 8000
 
 CMD ["/usr/bin/supervisord", "-n"]
