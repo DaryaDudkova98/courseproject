@@ -1,23 +1,30 @@
-FROM php:8.3-fpm
+FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
-    git unzip libicu-dev libzip-dev libpng-dev libonig-dev \
-    && docker-php-ext-install intl pdo pdo_mysql zip opcache
+    nginx \
+    supervisor \
+    git \
+    unzip \
+    libicu-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    zip \
+    curl \
+    && docker-php-ext-install intl pdo pdo_mysql zip
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY . /var/www/html
 WORKDIR /var/www/html
-
-COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN apt-get install -y nginx
+COPY docker/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/supervisord.conf /etc/supervisord.conf
 
-COPY docker/nginx.conf /etc/nginx/nginx.conf
-COPY docker/apache.conf /etc/apache2/sites-available/000-default.conf
+RUN chown -R www-data:www-data /var/www/html
 
+EXPOSE 8080
 
-ENV PORT=8080
-
-CMD service nginx start && php-fpm
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
