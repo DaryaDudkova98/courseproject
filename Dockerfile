@@ -21,10 +21,10 @@ WORKDIR /var/www/html
 RUN composer install --no-dev --optimize-autoloader
 
 COPY docker/default.conf /etc/nginx/conf.d/default.conf
-COPY docker/supervisord.conf /etc/supervisord.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 8080
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-n"]
