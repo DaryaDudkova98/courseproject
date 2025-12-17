@@ -1,0 +1,5 @@
+services:
+    Elastic\Elasticsearch\Client:
+        factory: ['Elastic\Elasticsearch\ClientBuilder', 'fromConfig']
+        arguments:
+            - { hosts: ['localhost:9200'] }
