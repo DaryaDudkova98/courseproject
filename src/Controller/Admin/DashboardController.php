@@ -2,12 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
 
 #[Route('/')]
 class DashboardController extends AbstractDashboardController
@@ -41,5 +44,13 @@ class DashboardController extends AbstractDashboardController
         if ($this->isGranted('ROLE_ADMIN')) {
             yield MenuItem::linkToRoute('Admin Panel', 'fa fa-tags', 'admin_panel');
         }
+    }
+
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+            ->addMenuItems([
+                MenuItem::linkToLogout('Exit', 'fa fa-sign-out'),
+            ]);
     }
 }

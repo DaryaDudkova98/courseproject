@@ -1,0 +1,45 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center vh-100 bg-body-tertiary">
+    <main class="form-signin border rounded shadow bg-white p-4" style="max-width: 400px; width: 100%;">
+        <h1 class="h3 mb-3 fw-normal text-center">Registration</h1>
+
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        {{ form_start(registrationForm) }}
+
+        <div class="form-floating mb-3">
+            {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Email', 'class': 'form-control'}}) }}
+            <label for="{{ registrationForm.email.vars.id }}">Email</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Пароль', 'class': 'form-control'}}) }}
+            <label for="{{ registrationForm.plainPassword.vars.id }}">Password</label>
+        </div>
+
+        <div class="form-check mb-3">
+            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+            <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">
+                I agree to the terms
+            </label>
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Register</button>
+
+        {{ form_end(registrationForm) }}
+
+        <div class="d-flex justify-content-between mt-4 text-muted small">
+            <div>
+                Already have an account?
+                <a href="{{ path('app_login') }}" class="ms-1">Login</a>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
