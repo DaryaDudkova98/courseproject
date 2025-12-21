@@ -4,23 +4,25 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.2",
+        "php": "^8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-pdo": "*",
-        "easycorp/easyadmin-bundle": "*",
-        "elasticsearch/elasticsearch": "8.0",
+        "doctrine/doctrine-migrations-bundle": "^3.7",
+        "easycorp/easyadmin-bundle": ">=4.27.5",
+        "elasticsearch/elasticsearch": "^8.19",
         "symfony/asset": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.10",
         "symfony/framework-bundle": "7.4.*",
         "symfony/runtime": "7.4.*",
+        "symfony/security-bundle": "7.4.*",
         "symfony/twig-bundle": "7.4.*",
         "symfony/ux-icons": "^2.31",
         "symfony/yaml": "7.4.*",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/extra-bundle": "^2.12|^3.22.2",
+        "twig/twig": "^2.12|^3.22.2"
     },
     "config": {
         "allow-plugins": {
@@ -29,7 +31,10 @@
             "symfony/runtime": true
         },
         "bump-after-update": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.3.0"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -52,16 +57,9 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
+        "auto-scripts": {},
+        "post-install-cmd": [],
+        "post-update-cmd": []
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -71,5 +69,9 @@
             "allow-contrib": false,
             "require": "7.4.*"
         }
-    }    
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.5",
+        "symfony/maker-bundle": ">=1.65.1"
+    }
 }

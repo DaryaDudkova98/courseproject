@@ -1,30 +1,27 @@
-FROM php:8.2-fpm
+FROM webdevops/php-nginx:8.3
 
+# Устанавливаем только то, что реально нужно
 RUN apt-get update && apt-get install -y \
-    nginx \
-    supervisor \
     git \
     unzip \
-    libicu-dev \
-    libonig-dev \
-    libxml2-dev \
     libzip-dev \
-    zip \
-    curl \
-    && docker-php-ext-install intl pdo pdo_mysql zip
+    libxml2-dev \
+    curl
 
+# Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Копируем проект
 COPY . /var/www/html
 WORKDIR /var/www/html
 
+# Устанавливаем зависимости
 RUN composer install --no-dev --optimize-autoloader
 
-COPY docker/default.conf /etc/nginx/conf.d/default.conf
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Копируем конфиг nginx в правильное место
+COPY docker/default.conf /opt/docker/etc/nginx/vhost.conf
 
+# Права
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 8080
-
-CMD ["/usr/bin/supervisord", "-n"]

@@ -1,0 +1,288 @@
+{
+    "folder-color.pathColors": [
+        {
+            "folderPath": "courceproject\\config\\packages\\framework.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\http_discovery.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\property_info.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\routing.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.vscode\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.vscode\\settings.json\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\assets\\icons\\",
+            "color": "foldercolorizer.color_0000cc"
+        },
+        {
+            "folderPath": "courceproject\\assets\\icons\\symfony.svg\\",
+            "color": "foldercolorizer.color_0000cc"
+        },
+        {
+            "folderPath": "courceproject\\bin\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\cache.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\csrf.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\doctrine.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\easy_admin.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\security.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\translation.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\twig_component.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\twig.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\ux_icons.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\packages\\validator.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\routes\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\services\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\services\\elasticsearch.yaml\\",
+            "color": "foldercolorizer.color_0000cc"
+        },
+        {
+            "folderPath": "courceproject\\config\\bundles.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\preload.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\reference.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\routes.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\config\\services.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\docker\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\public\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\public\\bundles\\",
+            "color": "foldercolorizer.color_0000cc"
+        },
+        {
+            "folderPath": "courceproject\\public\\index.php\\",
+            "color": "foldercolorizer.color_0000cc"
+        },
+        {
+            "folderPath": "courceproject\\src\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Controller\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Controller\\Admin\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Controller\\Admin\\DashboardController.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Controller\\Admin\\SearchController.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Controller\\.gitignore\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Entity\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Entity\\.gitignore\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Repository\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Repository\\.gitignore\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Service\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Service\\SearchService.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\src\\Kernel.php\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\bundles\\EasyAdminBundle\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\bundles\\EasyAdminBundle\\layout.html.twig\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\page\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\page\\search_results.html.twig\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\base.html.twig\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\templates\\dashboard.html.twig\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\translations\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\translations\\.gitignore\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\var\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\vendor\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.editorconfig\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.env\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.env.dev\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.gitignore\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\compose.override.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\compose.yaml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\composer.json\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\composer.lock\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\Dockerfile\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\elasticsearch.yml\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\railway.json\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\symfony.lock\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\assets\\",
+            "color": "foldercolorizer.color_ccccff"
+        },
+        {
+            "folderPath": "courceproject\\.env.local\\",
+            "color": "foldercolorizer.color_ccccff"
+        }
+    ]
+}

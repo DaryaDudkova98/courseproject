@@ -1,20 +1,45 @@
+version: '3.9'
+
 services:
-  ###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
+
+  # PHP / Symfony
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
+      WEB_DOCUMENT_ROOT: /app/public
+      WEB_DOCUMENT_INDEX: index.php
+      PHP_DISMOD: ioncube
+      DATABASE_URL: "postgres://app:secret@database:5432/app"
+    ports:
+      - "8010:80"
+    volumes:
+      - .:/app
+    working_dir: /app
+    depends_on:
+      - database
+      - elasticsearch
+
+  # PostgreSQL
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
     healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
+      test: ["CMD", "pg_isready", "-d", "app", "-U", "app"]
       timeout: 5s
       retries: 5
       start_period: 60s
+    ports:
+      - "5432:5432"
     volumes:
       - database_data:/var/lib/postgresql/data:rw
-  ###< doctrine/doctrine-bundle ###
 
+  # Elasticsearch
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.22
     container_name: es-light
@@ -26,6 +51,8 @@ services:
     mem_limit: 2g
     volumes:
       - esdata:/usr/share/elasticsearch/data
+
+# Volumes
 
 volumes:
   database_data:
