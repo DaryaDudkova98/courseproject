@@ -2,7 +2,7 @@
 
 {% block header %}
     {{ parent() }}
-    <form method="get" action="{{ path('admin_search') }}" style="margin-left: auto; margin-right: 1rem;">
+    <form method="get" action="{{ path('search') }}" style="margin-left: auto; margin-right: 1rem;">
         <input type="text" name="q" placeholder="Search..." class="form-control" />
     </form>
 {% endblock %}
