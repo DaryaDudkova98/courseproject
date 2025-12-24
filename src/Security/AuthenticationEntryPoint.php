@@ -15,7 +15,6 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface
 
     public function start(Request $request, ?AuthenticationException $authException = null): RedirectResponse
     {
-        // Без флеша, только редирект
         return new RedirectResponse($this->urlGenerator->generate('security_login'));
     }
 }

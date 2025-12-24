@@ -1,0 +1,41 @@
+{% extends 'base_auth.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-center vh-100 bg-body-tertiary">
+    <main class="form-signin border rounded shadow bg-white p-4" style="max-width: 400px; width: 100%;">
+        <div class="text-center mb-4">
+            <div class="bg-purple text-white rounded-circle d-inline-block p-3" style="font-size: 2rem;">
+                <strong>{B}</strong>
+            </div>
+            <h1 class="h3 mt-3 mb-3 fw-normal">Reset your password</h1>
+            <p class="text-muted small">Enter your email address and we’ll send you a link to reset your password.</p>
+        </div>
+
+        {% for flash_error in app.flashes('reset_password_error') %}
+            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        {% endfor %}
+
+        {{ form_start(requestForm) }}
+
+        <div class="form-floating mb-3">
+            {{ form_widget(requestForm.email, {'attr': {'placeholder': 'Email', 'class': 'form-control'}}) }}
+            <label for="{{ requestForm.email.vars.id }}">Email address</label>
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Send password reset email</button>
+
+        {{ form_end(requestForm) }}
+
+        <div class="d-flex justify-content-between mt-4 text-muted small">
+            <div>
+                <a href="{{ path('app_login') }}">Back to login</a>
+            </div>
+            <div>
+                <a href="{{ path('app_register') }}">Create account</a>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
