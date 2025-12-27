@@ -42,7 +42,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Inventory', 'fa fa-tags', 'inventory');
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            yield MenuItem::linkToRoute('Admin Panel', 'fa fa-tags', 'admin_panel');
+            yield MenuItem::linkToRoute('Admin Panel', 'fa fa-tools', 'admin_panel');
         }
     }
 
@@ -52,5 +52,17 @@ class DashboardController extends AbstractDashboardController
             ->addMenuItems([
                 MenuItem::linkToLogout('Exit', 'fa fa-sign-out'),
             ]);
+    }
+
+    #[Route('/inventory', name: 'inventory')]
+    public function inventory(): Response
+    {
+        return $this->render('inventory/index.html.twig');
+    }
+
+    #[Route('/admin/panel', name: 'admin_panel')]
+    public function adminPanel(): Response
+    {
+        return $this->render('admin_panel/index.html.twig');
     }
 }

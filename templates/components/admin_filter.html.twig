@@ -1,0 +1,26 @@
+<div class="position-relative">
+	<button type="button" id="filterToggle" class="btn d-flex justify-content-start align-items-center" style="width:240px; background-color:white; color:black; border:1px solid #ccc;">
+		Filter
+	</button>
+
+	<div id="filterMenu" class="card p-3 shadow position-absolute end-0 mt-2" style="width: 350px; display: none; z-index: 1000;">
+		<div class="mb-2">
+			<label class="form-label">Column</label>
+			<select id="filterColumn" class="form-select">
+				<option value="1">Name</option>
+				<option value="2">Email</option>
+				<option value="3">Status</option>
+				<option value="4">Last Seen</option>
+			</select>
+		</div>
+		<div class="mb-2">
+			<label class="form-label">Direction</label>
+			<select id="filterDirection" class="form-select">
+				<option value="asc">▲ Ascending</option>
+				<option value="desc">▼ Descending</option>
+			</select>
+		</div>
+		<button type="button" id="applyFilter" class="btn btn-primary w-100">Apply</button>
+		<button type="button" id="resetFilter" class="btn btn-secondary flex-fill">Reset</button>
+	</div>
+</div>
