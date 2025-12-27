@@ -35,7 +35,7 @@ security:
 
             oauth:
                 resource_owners:
-                    google: /login/check-google
+                    google: "/connect/google/check"
                     #facebook: /login/check-facebook
                 login_path: app_login
                 failure_path: app_login

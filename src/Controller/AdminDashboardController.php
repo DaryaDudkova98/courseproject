@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class AdminDashboardController extends AbstractController
 {
-    #[Route('/admin/dashboard', name: 'app_admin_dashboard')]
+    #[Route('/admin/panel', name: 'admin_panel')]
     public function index(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
 
-        return $this->render('admin_dashboard/index.html.twig', [
+        return $this->render('admin_panel/index.html.twig', [
             'controller_name' => 'AdminDashboardController',
             'users' => $users,
         ]);
