@@ -1,57 +1,58 @@
 <div class="container py-5">
-    <h2 class="text-primary mb-4" style="font-family: 'Orbitron', sans-serif;">Admin Panel</h2>
+	<h2 class="text-primary mb-4" style="font-family: 'Orbitron', sans-serif;">Admin Panel</h2>
 
-    <form method="post" action="{{ path('admin_action_toolbar') }}">
-        {% include 'components/admin_toolbar.html.twig' %}
-        {% include 'components/admin_filter.html.twig' %}
+	<form method="post" action="{{ path('admin_action_toolbar') }}">
+		{% include 'components/admin_toolbar.html.twig' %}
+		{% include 'components/admin_filter.html.twig' %}
 
-        <div class="table-responsive bg-white rounded shadow p-3">
-            <table class="table table-bordered table-hover align-middle" id="userTable">
-                <thead class="table-light">
-                <tr>
-                    <th><input type="checkbox" id="selectAll"></th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Last Seen</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td class="{% if user.status == 'blocked' %}text-muted{% endif %}">
-                            <input type="checkbox" name="selected[]" value="{{ user.id }}" class="row-checkbox">
-                        </td>
-                        <td class="{% if user.status == 'blocked' %}text-muted text-decoration-line-through{% endif %}">
-                            {{ user.firstName }} {{ user.lastName }}
-                        </td>
-                        <td class="{% if user.status == 'blocked' %}text-muted{% endif %}">{{ user.email }}</td>
-                        <td class="{% if user.status == 'blocked' %}text-muted{% endif %}">
-                            {% if user.status == 'active' %}
-                                <span>Active</span>
-                            {% elseif user.status == 'blocked' %}
-                                <span>Blocked</span>
-                            {% elseif user.status == 'deleted' %}
-                                <span>Deleted</span>
-                            {% elseif user.status == 'unverified' %}
-                                <span>Unverified</span>
-                            {% endif %}
-                        </td>
-                        <td class="{% if user.status == 'blocked' %}text-muted{% endif %}">
-                            {% if user.lastSeen %}
-                                {{ user.lastSeen|date('d.m.Y H:i') }}
-                            {% else %}
-                                <span class="text-muted">Never</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </form>
+		<div class="table-responsive bg-white rounded shadow p-3">
+			<table class="table table-bordered table-hover align-middle" id="userTable">
+				<thead class="table-light">
+					<tr>
+						<th><input type="checkbox" id="selectAll"></th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Status</th>
+						<th>Last Seen</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+							<td class="{% if user.status == 'blocked' %}text-muted{% endif %}">
+								<input type="checkbox" name="selected[]" value="{{ user.id }}" class="row-checkbox">
+							</td>
+							<td class="{% if user.status == 'blocked' %}text-muted text-decoration-line-through{% endif %}">
+								{{ user.name }}
+							</td>
+
+							<td class="{% if user.status == 'blocked' %}text-muted{% endif %}">{{ user.email }}</td>
+							<td class="{% if user.status == 'blocked' %}text-muted{% endif %}">
+								{% if user.status == 'active' %}
+									<span>Active</span>
+								{% elseif user.status == 'blocked' %}
+									<span>Blocked</span>
+								{% elseif user.status == 'deleted' %}
+									<span>Deleted</span>
+								{% elseif user.status == 'unverified' %}
+									<span>Unverified</span>
+								{% endif %}
+							</td>
+							<td class="{% if user.status == 'blocked' %}text-muted{% endif %}">
+								{% if user.lastSeen %}
+									{{ user.lastSeen|date('d.m.Y H:i') }}
+								{% else %}
+									<span class="text-muted">Never</span>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</form>
 </div>
-<script>
+ <script>
 document.addEventListener('DOMContentLoaded', () => {
     const selectAll = document.getElementById('selectAll');
     if (selectAll) {

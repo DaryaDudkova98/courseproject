@@ -3,15 +3,14 @@
 {% block table_headers %}
     <th>ID</th>
     <th>Name</th>
-    <th>Quantity</th>
 {% endblock %}
 
 {% block table_rows %}
     {% for item in inventory %}
-        <tr>
-            <td>{{ item.id }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.quantity }}</td>
-        </tr>
-    {% endfor %}
+    <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.category ? item.category.name : 'Без категории' }}</td>
+    </tr>
+{% endfor %}
+
 {% endblock %}

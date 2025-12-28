@@ -54,8 +54,20 @@ class AdminToolbarController extends AbstractController
 
         $users = $em->getRepository(User::class)->findBy(['id' => $selectedIds]);
 
+        if ($action === 'view') {
+            return $this->redirectToRoute('user_view', ['id' => $selectedIds[0]]);
+        }
+
         foreach ($users as $user) {
             switch ($action) {
+                case 'make_admin':
+                    $user->setRoles(['ROLE_ADMIN']);
+                    break;
+
+                case 'remove_admin':
+                    $user->setRoles(['ROLE_USER']);
+                    break;
+
                 case 'block':
                     $user->setStatus('blocked');
                     break;
@@ -76,6 +88,7 @@ class AdminToolbarController extends AbstractController
 
         $em->flush();
 
+
         $this->addFlash('success', 'Action applied to selected users.');
         return $this->redirectToRoute('admin_users');
     }
@@ -85,7 +98,7 @@ class AdminToolbarController extends AbstractController
     {
         $users = $em->getRepository(User::class)->findAll();
 
-        return $this->render('admin_dashboard.html.twig', [
+        return $this->render('admin_panel/index.html.twig', [
             'users' => $users,
         ]);
     }

@@ -38,7 +38,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Home', 'fa fa-home');
-        yield MenuItem::linkToRoute('Profile', 'fa fa-tags', 'user_profile');
+        yield MenuItem::linkToRoute('Profile', 'fa fa-user', 'app_profile');
         yield MenuItem::linkToRoute('Inventory', 'fa fa-tags', 'inventory');
 
         if ($this->isGranted('ROLE_ADMIN')) {
@@ -64,5 +64,11 @@ class DashboardController extends AbstractDashboardController
     public function adminPanel(): Response
     {
         return $this->render('admin_panel/index.html.twig');
+    }
+
+    #[Route('/profile', name: 'app_profile')]
+    public function profile(): Response
+    {
+        return $this->render('profile/index.html.twig');
     }
 }

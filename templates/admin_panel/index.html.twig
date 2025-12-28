@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends '@EasyAdmin/page/content.html.twig' %}
 
-{% block title %}courseprogect.of.by | Admin Panel
-{% endblock %}
+{% block title %}courseprogect.of.by | Admin Panel{% endblock %}
 
-{% block body class="bg-light" %}
-	{% include 'components/admin_panel_content.html.twig' %}
+{% block content %}
+    <div class="bg-light p-3 rounded">
+        {% include 'components/admin_panel_content.html.twig' with { users: users } %}
+    </div>
 {% endblock %}
