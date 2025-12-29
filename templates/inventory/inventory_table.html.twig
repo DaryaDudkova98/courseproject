@@ -3,13 +3,20 @@
 {% block table_headers %}
     <th>ID</th>
     <th>Name</th>
+    <th>Actions</th>
 {% endblock %}
 
 {% block table_rows %}
     {% for item in inventory %}
     <tr>
         <td>{{ item.id }}</td>
-        <td>{{ item.category ? item.category.name : 'Без категории' }}</td>
+        <td>{{ item.category ? item.category.name : 'Uncategorized' }}</td>
+        {% include '_crud_actions.html.twig' with {
+            entity: item,
+            show_route: 'app_crud_inventory_show',
+            edit_route: 'app_crud_inventory_edit',
+            delete_route: 'app_crud_inventory_delete' }
+        %}
     </tr>
 {% endfor %}
 

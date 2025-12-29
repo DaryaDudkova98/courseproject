@@ -1,0 +1,18 @@
+{# templates/_crud_actions.html.twig #}
+<td>
+    {% if is_granted('VIEW', entity) %}
+        <a href="{{ path(show_route, {'id': entity.id}) }}" class="btn btn-info btn-sm">👁 Show</a>
+    {% endif %}
+
+    {% if is_granted('EDIT', entity) %}
+        <a href="{{ path(edit_route, {'id': entity.id}) }}" class="btn btn-warning btn-sm">✏️ Edit</a>
+    {% endif %}
+
+    {% if is_granted('DELETE', entity) %}
+        <form method="post" action="{{ path(delete_route, {'id': entity.id}) }}" style="display:inline-block"
+              onsubmit="return confirm('Are you sure?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
+            <button class="btn btn-danger btn-sm">🗑 Delete</button>
+        </form>
+    {% endif %}
+</td>
