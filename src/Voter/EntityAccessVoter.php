@@ -2,9 +2,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Inventory;
-use App\Entity\Item;
-use App\Entity\CardItem;
+use App\Entity\AccessibleEntity;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -14,9 +12,7 @@ class EntityAccessVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, ['VIEW', 'EDIT', 'DELETE', 'NEW'])
-            && ($subject instanceof Inventory
-                || $subject instanceof Item
-                || $subject instanceof CardItem);
+            && $subject instanceof AccessibleEntity;
     }
 
     protected function voteOnAttribute(string $attribute, $entity, TokenInterface $token): bool
@@ -25,6 +21,8 @@ class EntityAccessVoter extends Voter
         if (!$user instanceof User) {
             return false;
         }
+
+        /** @var AccessibleEntity $entity */
 
         switch ($attribute) {
             case 'VIEW':

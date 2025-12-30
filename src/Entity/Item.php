@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
-class Item
+class Item implements AccessibleEntity
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,9 +24,19 @@ class Item
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'item')]
     private Collection $likes;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private ?User $owner = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $public = false;
+
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    private Collection $writers;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
+        $this->writers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,7 +52,6 @@ class Item
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -60,19 +69,59 @@ class Item
             $this->likes->add($like);
             $like->setItem($this);
         }
-
         return $this;
     }
 
     public function removeLike(Like $like): static
     {
         if ($this->likes->removeElement($like)) {
-            // set the owning side to null (unless already changed)
             if ($like->getItem() === $this) {
                 $like->setItem(null);
             }
         }
+        return $this;
+    }
 
+
+    public function getOwner(): User
+    {
+        return $this->owner;
+    }
+
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->public;
+    }
+
+    public function setPublic(bool $public): static
+    {
+        $this->public = $public;
+        return $this;
+    }
+
+    public function getWriters(): Collection
+    {
+        return $this->writers;
+    }
+
+    public function addWriter(User $user): static
+    {
+        if (!$this->writers->contains($user)) {
+            $this->writers->add($user);
+        }
+        return $this;
+    }
+
+    public function removeWriter(User $user): static
+    {
+        $this->writers->removeElement($user);
         return $this;
     }
 }
