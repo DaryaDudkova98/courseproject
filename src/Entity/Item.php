@@ -83,7 +83,7 @@ class Item implements AccessibleEntity
     }
 
 
-    public function getOwner(): User
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
@@ -93,6 +93,11 @@ class Item implements AccessibleEntity
     {
         $this->owner = $owner;
         return $this;
+    }
+
+    public function getOwnerSafe(): ?User
+    {
+        return $this->owner;
     }
 
     public function isPublic(): bool
@@ -123,5 +128,10 @@ class Item implements AccessibleEntity
     {
         $this->writers->removeElement($user);
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? 'Unnamed Item';
     }
 }

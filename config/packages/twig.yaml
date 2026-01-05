@@ -1,5 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        i18n:
+            locale: 'en'
+            direction: 'ltr'
+            translation_domain: 'EasyAdminBundle'
 
 when@test:
     twig:

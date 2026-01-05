@@ -1,0 +1,11 @@
+{# templates/_language_switcher.html.twig #}
+<div class="language-switcher">
+    <select onchange="window.location.href='{{ path('app_change_locale', {'locale': ''}) }}' + this.value">
+        <option value="en" {% if app.request.locale == 'en' %}selected{% endif %}>
+            English
+        </option>
+        <option value="es" {% if app.request.locale == 'es' %}selected{% endif %}>
+            Español
+        </option>
+    </select>
+</div>

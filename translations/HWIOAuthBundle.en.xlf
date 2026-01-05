@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="xFcD5cP" resname="header.connecting">
+        <source>header.connecting</source>
+        <target>Connecting</target>
+      </trans-unit>
+      <trans-unit id="BO9fH69" resname="header.success">
+        <source>header.success</source>
+        <target>Successfully connected the account "%name%"!</target>
+      </trans-unit>
+      <trans-unit id="FCq2RsZ" resname="header.register">
+        <source>header.register</source>
+        <target>Register with the account "%name%"</target>
+      </trans-unit>
+      <trans-unit id="uHPueSh" resname="header.registration_success">
+        <source>header.registration_success</source>
+        <target>Successfully registered and connected the account "%username%"!</target>
+      </trans-unit>
+      <trans-unit id="ToUWBpM" resname="connect.confirm.cancel">
+        <source>connect.confirm.cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="KjtPgcb" resname="connect.confirm.submit">
+        <source>connect.confirm.submit</source>
+        <target>Connect account</target>
+      </trans-unit>
+      <trans-unit id="kwhH9aC" resname="connect.confirm.text">
+        <source>connect.confirm.text</source>
+        <target>Are you sure that you want to connect your %service% account "%name%" to your current account?</target>
+      </trans-unit>
+      <trans-unit id="l.4.Qpv" resname="connect.registration.cancel">
+        <source>connect.registration.cancel</source>
+        <target>Cancel</target>
+      </trans-unit>
+      <trans-unit id="9qLryAg" resname="connect.registration.submit">
+        <source>connect.registration.submit</source>
+        <target>Register account</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

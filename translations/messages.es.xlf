@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="gQ9qQb2" resname="dashboard.welcome">
+        <source>dashboard.welcome</source>
+        <target>¡Bienvenido, %username%!</target>
+      </trans-unit>
+      <trans-unit id="AckGMAp" resname="dashboard.title">
+        <source>dashboard.title</source>
+        <target>Mi Panel de Administración</target>
+      </trans-unit>
+      <trans-unit id="ByxQKz_" resname="menu.dashboard">
+        <source>menu.dashboard</source>
+        <target>Inicio</target>
+      </trans-unit>
+      <trans-unit id="G0U5yaX" resname="menu.profile">
+        <source>menu.profile</source>
+        <target>Perfil</target>
+      </trans-unit>
+      <trans-unit id="Mj2DNlx" resname="menu.inventory">
+        <source>menu.inventory</source>
+        <target>Inventario</target>
+      </trans-unit>
+      <trans-unit id="XYZ789" resname="menu.item">
+        <source>menu.item</source>
+        <target>Artículos</target>
+      </trans-unit>
+      <trans-unit id="NNhAp3y" resname="menu.admin_panel">
+        <source>menu.admin_panel</source>
+        <target>Panel de Administración</target>
+      </trans-unit>
+      <trans-unit id="FglCGbk" resname="user.logout">
+        <source>user.logout</source>
+        <target>Salir</target>
+      </trans-unit>
+      <trans-unit id="LVf2WTh" resname="inventory.title">
+        <source>inventory.title</source>
+        <target>Gestión de Inventario</target>
+      </trans-unit>
+      <trans-unit id="e9Ud1H8" resname="admin_panel.title">
+        <source>admin_panel.title</source>
+        <target>Panel de Administración</target>
+      </trans-unit>
+      <trans-unit id="LpGyXH8" resname="profile.title">
+        <source>profile.title</source>
+        <target>Mi Perfil</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

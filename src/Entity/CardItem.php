@@ -49,7 +49,7 @@ class CardItem implements AccessibleEntity
     }
 
     
-    public function getOwner(): User
+    public function getOwner(): ?User
     {
         return $this->owner;
     }
@@ -58,6 +58,11 @@ class CardItem implements AccessibleEntity
     {
         $this->owner = $owner;
         return $this;
+    }
+
+    public function getOwnerSafe(): ?User
+    {
+        return $this->owner;
     }
 
     public function isPublic(): bool

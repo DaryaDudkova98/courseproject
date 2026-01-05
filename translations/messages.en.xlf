@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="gQ9qQb2" resname="dashboard.welcome">
+        <source>dashboard.welcome</source>
+        <target>Welcome, %username%!</target>
+      </trans-unit>
+      <trans-unit id="AckGMAp" resname="dashboard.title">
+        <source>dashboard.title</source>
+        <target>My Admin Panel</target>
+      </trans-unit>
+      <trans-unit id="ByxQKz_" resname="menu.dashboard">
+        <source>menu.dashboard</source>
+        <target>Home</target>
+      </trans-unit>
+      <trans-unit id="G0U5yaX" resname="menu.profile">
+        <source>menu.profile</source>
+        <target>Profile</target>
+      </trans-unit>
+      <trans-unit id="Mj2DNlx" resname="menu.inventory">
+        <source>menu.inventory</source>
+        <target>Inventory</target>
+      </trans-unit>
+      <trans-unit id="ABC123" resname="menu.item">
+        <source>menu.item</source>
+        <target>Items</target>
+      </trans-unit>
+      <trans-unit id="NNhAp3y" resname="menu.admin_panel">
+        <source>menu.admin_panel</source>
+        <target>Admin Panel</target>
+      </trans-unit>
+      <trans-unit id="FglCGbk" resname="user.logout">
+        <source>user.logout</source>
+        <target>Exit</target>
+      </trans-unit>
+      <trans-unit id="LVf2WTh" resname="inventory.title">
+        <source>inventory.title</source>
+        <target>Inventory Management</target>
+      </trans-unit>
+      <trans-unit id="e9Ud1H8" resname="admin_panel.title">
+        <source>admin_panel.title</source>
+        <target>Administration Panel</target>
+      </trans-unit>
+      <trans-unit id="LpGyXH8" resname="profile.title">
+        <source>profile.title</source>
+        <target>My Profile</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -11,16 +11,30 @@
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
 
-        {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        <div class="form-floating mb-3">
+            {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Full Name', 'class': 'form-control'}}) }}
+            <label for="{{ registrationForm.name.vars.id }}">Full Name</label>
+            {{ form_errors(registrationForm.name) }}
+        </div>
 
         <div class="form-floating mb-3">
             {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Email', 'class': 'form-control'}}) }}
             <label for="{{ registrationForm.email.vars.id }}">Email</label>
+            {{ form_errors(registrationForm.email) }}
         </div>
 
         <div class="form-floating mb-3">
-            {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Пароль', 'class': 'form-control'}}) }}
-            <label for="{{ registrationForm.plainPassword.vars.id }}">Password</label>
+            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'placeholder': 'Password', 'class': 'form-control'}}) }}
+            <label for="{{ registrationForm.plainPassword.first.vars.id }}">Password</label>
+            {{ form_errors(registrationForm.plainPassword.first) }}
+        </div>
+
+        <div class="form-floating mb-3">
+            {{ form_widget(registrationForm.plainPassword.second, {'attr': {'placeholder': 'Repeat Password', 'class': 'form-control'}}) }}
+            <label for="{{ registrationForm.plainPassword.second.vars.id }}">Repeat Password</label>
+            {{ form_errors(registrationForm.plainPassword.second) }}
         </div>
 
         <div class="form-check mb-3">
@@ -28,6 +42,7 @@
             <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">
                 I agree to the terms
             </label>
+            {{ form_errors(registrationForm.agreeTerms) }}
         </div>
 
         <button class="btn btn-primary w-100 py-2" type="submit">Register</button>
