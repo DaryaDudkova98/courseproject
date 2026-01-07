@@ -8,11 +8,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class InventoryCrudController extends AbstractCrudController
 {
@@ -35,24 +36,29 @@ class InventoryCrudController extends AbstractCrudController
     {
         $fields = [
             IdField::new('id')->onlyOnIndex(),
+            TextField::new('title')
+                ->setLabel('Title')
+                ->setRequired(false)
+                ->setHelp('Enter inventory item title'),
             AssociationField::new('category')
                 ->setLabel('Category (Inventory Name)')
                 ->setRequired(true)
                 ->setHelp('Select category - it will be used as inventory name'),
+            AssociationField::new('tags')
+                ->setCrudController(TagCrudController::class)
+                ->autocomplete()
+                ->setFormTypeOption('by_reference', false),
         ];
 
         if (in_array($pageName, [Crud::PAGE_NEW, Crud::PAGE_EDIT])) {
-            $fields[] = TextareaField::new('description')
+
+            $fields[] = TextEditorField::new('description')
                 ->setLabel('Description')
                 ->setHelp('Rich text editor. Use the toolbar for formatting.')
                 ->setRequired(false)
-                ->setFormType(CKEditorType::class)
-                ->setFormTypeOption('config', [
-                    'toolbar' => 'full',
-                    'height' => 300,
-                    'uiColor' => '#f7f7f7',
-                ]);
-        } else {
+                ->setNumOfRows(10);
+        }
+        else {
             $fields[] = TextareaField::new('description')
                 ->setLabel('Description')
                 ->hideOnIndex()

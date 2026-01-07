@@ -16,6 +16,9 @@ class Inventory implements AccessibleEntity
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $title = null;
+
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description = null;
 
@@ -36,10 +39,15 @@ class Inventory implements AccessibleEntity
     #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'inventory')]
     private Collection $items;
 
+     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'inventories')]
+    #[ORM\JoinTable(name: 'inventory_tags')]
+    private Collection $tags;
+
     public function __construct()
     {
         $this->writers = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +167,42 @@ class Inventory implements AccessibleEntity
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+    
+    public function setTitle(?string $title): static
+    {
+        $this->title = $title;
+        
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->tags->removeElement($tag);
+
         return $this;
     }
 

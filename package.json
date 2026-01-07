@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
+    "@popperjs/core": "^2.11.8",
+    "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
+    "bootstrap": "^5.3.8",
+    "ckeditor": "^4.12.1",
+    "tom-select": "^2.2.2"
+  }
+}

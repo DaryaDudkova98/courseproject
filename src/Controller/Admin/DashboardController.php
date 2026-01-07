@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Item;
 use App\Entity\Inventory;
+use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
@@ -73,12 +74,12 @@ class DashboardController extends AbstractDashboardController
         );
 
         if ($this->isGranted('ROLE_ADMIN')) {
-            yield MenuItem::linkToRoute(
-                $this->translator->trans('menu.admin_panel'),
-                'fa fa-tools',
-                'admin_panel'
-            );
-        }
+        yield MenuItem::linkToCrud(
+            'Manage Users',
+            'fas fa-users-cog',
+            User::class
+        );
+    }
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu
