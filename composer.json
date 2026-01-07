@@ -11,9 +11,11 @@
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "easycorp/easyadmin-bundle": ">=4.27.5",
         "elasticsearch/elasticsearch": "^8.19",
+        "friendsofsymfony/ckeditor-bundle": "^2.8",
         "hwi/oauth-bundle": "^2.4",
         "knplabs/knp-paginator-bundle": "^6.10",
         "knpuniversity/oauth2-client-bundle": "^2.20",
+        "league/commonmark": "^2.8",
         "league/oauth2-google": "^4.1",
         "symfony/asset": "7.4.*",
         "symfony/console": "7.4.*",
@@ -67,7 +69,9 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
-        "auto-scripts": {},
+        "auto-scripts": {
+            "ckeditor:install": "symfony-cmd"
+        },
         "post-install-cmd": [],
         "post-update-cmd": []
     },

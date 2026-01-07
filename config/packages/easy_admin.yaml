@@ -2,3 +2,11 @@ easy_admin:
     design:
         templates:
             layout: 'easy_admin/layout.html.twig'
+        assets:
+            css:
+                - 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'
+                - 'https://cdn.ckeditor.com/4.21.0/standard/contents.css'
+                - '/web/scripts/vendor/ckeditor/skins/moono-lisa/editor.css'
+            js:
+                #- 'https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js'
+                - '/web/scripts/vendor/ckeditor/ckeditor.js'

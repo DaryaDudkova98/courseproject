@@ -33,6 +33,11 @@ class Item implements AccessibleEntity
     #[ORM\ManyToMany(targetEntity: User::class)]
     private Collection $writers;
 
+    #[ORM\ManyToOne(targetEntity: Inventory::class, inversedBy: 'items')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Inventory $inventory = null;
+
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -127,6 +132,17 @@ class Item implements AccessibleEntity
     public function removeWriter(User $user): static
     {
         $this->writers->removeElement($user);
+        return $this;
+    }
+
+    public function getInventory(): ?Inventory
+    {
+        return $this->inventory;
+    }
+
+    public function setInventory(?Inventory $inventory): static
+    {
+        $this->inventory = $inventory;
         return $this;
     }
 

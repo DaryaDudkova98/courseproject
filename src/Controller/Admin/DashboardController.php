@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Item;
 use App\Entity\Inventory;
 use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -68,7 +69,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute(
             $this->translator->trans('menu.item'),
             'fa fa-tags',
-            'app_item'
+            'admin_item_index'
         );
 
         if ($this->isGranted('ROLE_ADMIN')) {

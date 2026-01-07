@@ -1,0 +1,9 @@
+{# templates/field/likes_count.html.twig #}
+{% if field.value is defined %}
+    {% set count = field.value %}
+    {% if count > 0 %}
+        <span style="color: #dc3545;"><i class="fa fa-heart"></i> {{ count }}</span>
+    {% else %}
+        <span class="text-muted"><i class="fa fa-heart"></i> 0</span>
+    {% endif %}
+{% endif %}

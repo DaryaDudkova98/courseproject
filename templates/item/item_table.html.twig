@@ -1,0 +1,79 @@
+{# templates/item/item_table.html.twig #}
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th width="50">
+                    <input type="checkbox" id="select-all" class="form-check-input">
+                </th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Public</th>
+                <th width="150">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for item in items %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="ids[]" value="{{ item.id }}"
+                        class="form-check-input item-checkbox">
+                </td>
+                <td>{{ item.id }}</td>
+                <td>
+                    <strong>{{ item.name }}</strong>
+                </td>
+                <td>
+                    <small class="text-muted">{{ item.owner ? item.owner.email : 'No owner' }}</small>
+                </td>
+                <td>
+                    {% if item.public %}
+                        <span class="badge bg-success">Public</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Private</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% include '_crud_actions.html.twig' with {
+                        entity: item,
+                        show_route: 'app_crud_inventory_show',
+                        edit_route: 'app_crud_inventory_edit',
+                        delete_route: 'app_crud_inventory_delete'
+                    } %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-center py-4">
+                    <div class="text-muted">
+                        <i class="bi bi-inbox fs-1"></i>
+                        <p class="mt-2">No items found</p>
+                        <a href="{{ path('app_item') }}"
+                        class="btn btn-sm btn-outline-primary">
+                            Create your first item
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectAll = document.getElementById('select-all');
+    const checkboxes = document.querySelectorAll('.item-checkbox');
+    
+    if (selectAll) {
+        selectAll.addEventListener('change', function() {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    }
+});
+</script>

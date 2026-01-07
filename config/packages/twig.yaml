@@ -5,7 +5,10 @@ twig:
             locale: 'en'
             direction: 'ltr'
             translation_domain: 'EasyAdminBundle'
-
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+        - '@EasyAdmin/crud/form_theme.html.twig'
+        
 when@test:
     twig:
         strict_variables: true

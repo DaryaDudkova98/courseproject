@@ -1,0 +1,16 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+fos_ck_editor:
+    default_config: my_config
+    configs:
+        my_config:
+            toolbar: full
+            jquery: true
+            require_js: true
+            language: en
+            uiColor: '#f7f7f7'
+            height: 300
+            startupFocus: true
+            removeButtons: 'Save,NewPage,Preview,Print,Templates'
+            autoGrow_minHeight: 200
+            autoGrow_maxHeight: 400
