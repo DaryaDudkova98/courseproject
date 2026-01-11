@@ -1,0 +1,29 @@
+{# templates/item/navTab/fields.html.twig#}
+
+<div class="text-center py-4">
+    <i class="fas fa-list-alt fa-2x text-muted mb-3"></i>
+    <h6>Fields Management</h6>
+    <p class="small text-muted mb-3">
+        Configure custom fields for your items
+    </p>
+    
+    <div class="d-grid gap-2">
+        <a href="{{ ea_url()
+            .setController('App\\Controller\\Admin\\CustomFieldCrudController')
+            .setAction('index') }}"
+           class="btn btn-outline-primary">
+            View All Fields
+        </a>
+        <a href="{{ ea_url()
+            .setController('App\\Controller\\Admin\\CustomFieldCrudController')
+            .setAction('new') }}"
+           class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create Field
+        </a>
+    </div>
+    
+    <div class="mt-4 small text-muted">
+        <div><i class="fas fa-server"></i> System fields: ID, Custom ID, Dates</div>
+        <div><i class="fas fa-plus-circle"></i> Custom fields: Up to 3 per type</div>
+    </div>
+</div>

@@ -27,7 +27,7 @@ class DashboardController extends AbstractDashboardController
         return $this->render('dashboard.html.twig', [
             'welcome_message' => $this->translator->trans(
                 'dashboard.welcome',
-                ['%username%' => $this->getUser()->getUserIdentifier()]
+                ['%username%' => $this->getUser()?->getUserIdentifier() ?? 'Guest']
             )
         ]);
     }
@@ -58,7 +58,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute(
             $this->translator->trans('menu.profile'),
             'fa fa-user',
-            'app_profile'
+            'admin_profile_index'
         );
 
         yield MenuItem::linkToRoute(
@@ -82,25 +82,7 @@ class DashboardController extends AbstractDashboardController
     }
     }
 
-    public function configureUserMenu(UserInterface $user): UserMenu
-    {
-        return parent::configureUserMenu($user)
-            ->addMenuItems([
-                MenuItem::linkToLogout(
-                    $this->translator->trans('user.logout'),
-                    'fa fa-sign-out'
-                ),
-            ]);
-    }
-
-    ##[Route('/inventory', name: 'inventory')]
-    #public function inventory(): Response
-    #{
-    #return $this->render('inventory/index.html.twig', [
-    #'page_title' => $this->translator->trans('inventory.title'),
-    #]);
-    #}
-
+    
     #[Route('/admin/panel', name: 'admin_panel')]
     public function adminPanel(): Response
     {
@@ -109,11 +91,4 @@ class DashboardController extends AbstractDashboardController
         ]);
     }
 
-    #[Route('/profile', name: 'app_profile')]
-    public function profile(): Response
-    {
-        return $this->render('profile/index.html.twig', [
-            'page_title' => $this->translator->trans('profile.title'),
-        ]);
-    }
 }

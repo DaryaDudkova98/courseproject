@@ -1,0 +1,77 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}Profile{% endblock %}
+
+{% block page_content %}
+
+    <div class="content-panel">
+        <div class="content-panel-header with-background">
+            <h2 class="content-panel-title">
+                My Created Items
+                <span class="badge badge-secondary ms-2">{{ ownedItems|length }}</span>
+            </h2>
+        </div>
+        <div class="content-panel-body without-padding">
+            {% if ownedItems|length > 0 %}
+                <table class="table datagrid">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 80px;">ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in ownedItems %}
+                            <tr>
+                                <td class="text-center">{{ item.id }}</td>
+                                <td>{{ item.name|default('No name') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">
+                    <h4 class="empty-title">No created items</h4>
+                    <p class="empty-text">You haven't created any items yet</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="content-panel">
+        <div class="content-panel-header with-background">
+            <h2 class="content-panel-title">
+                Items for Editing
+                <span class="badge badge-secondary ms-2">{{ writableItems|length }}</span>
+            </h2>
+        </div>
+        <div class="content-panel-body without-padding">
+            {% if writableItems|length > 0 %}
+                <table class="table datagrid">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 80px;">ID</th>
+                            <th>Name</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in writableItems %}
+                            <tr>
+                                <td class="text-center">{{ item.id }}</td>
+                                <td>{{ item.name|default('No name') }}</td>
+                                <td>{{ item.owner ? item.owner.email : 'None' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty">
+                    <h4 class="empty-title">No items for editing</h4>
+                    <p class="empty-text">You don't have access to edit other users' items</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

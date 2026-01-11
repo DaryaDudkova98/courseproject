@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
+#[ORM\Table(name: 'item')]
 class Item implements AccessibleEntity
 {
     #[ORM\Id]
@@ -18,25 +19,27 @@ class Item implements AccessibleEntity
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $description = null;
+
     /**
      * @var Collection<int, Like>
      */
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'item')]
     private Collection $likes;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ownedItems')]
     private ?User $owner = null;
 
     #[ORM\Column(type: 'boolean')]
     private bool $public = false;
 
-    #[ORM\ManyToMany(targetEntity: User::class)]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'writableItems')]
     private Collection $writers;
 
     #[ORM\ManyToOne(targetEntity: Inventory::class, inversedBy: 'items')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Inventory $inventory = null;
-
 
     public function __construct()
     {
@@ -87,12 +90,10 @@ class Item implements AccessibleEntity
         return $this;
     }
 
-
     public function getOwner(): ?User
     {
         return $this->owner;
     }
-
 
     public function setOwner(?User $owner): static
     {
@@ -143,6 +144,17 @@ class Item implements AccessibleEntity
     public function setInventory(?Inventory $inventory): static
     {
         $this->inventory = $inventory;
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
         return $this;
     }
 

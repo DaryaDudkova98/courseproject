@@ -1,0 +1,111 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block page_content %}
+
+    <ul class="nav nav-tabs mb-3" id="itemTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="items-tab" data-bs-toggle="tab"
+                    data-bs-target="#items-pane" type="button" role="tab"
+                    aria-controls="items-pane" aria-selected="true">
+                <i class="fas fa-box me-1"></i> Items
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="chat-tab" data-bs-toggle="tab"
+                    data-bs-target="#chat-pane" type="button" role="tab"
+                    aria-controls="chat-pane" aria-selected="false">
+                <i class="fas fa-comments me-1"></i> Chat
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
+                    data-bs-target="#settings-pane" type="button" role="tab"
+                    aria-controls="settings-pane" aria-selected="false">
+                <i class="fas fa-cog me-1"></i> Settings
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="custom-id-tab" data-bs-toggle="tab"
+                    data-bs-target="#custom-id-pane" type="button" role="tab"
+                    aria-controls="custom-id-pane" aria-selected="false">
+                <i class="fas fa-id-card me-1"></i> Custom ID
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="fields-tab" data-bs-toggle="tab"
+                    data-bs-target="#fields-pane" type="button" role="tab"
+                    aria-controls="fields-pane" aria-selected="false">
+                <i class="fas fa-list-alt me-1"></i> Fields
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="access-tab" data-bs-toggle="tab"
+                    data-bs-target="#access-pane" type="button" role="tab"
+                    aria-controls="access-pane" aria-selected="false">
+                <i class="fas fa-shield-alt me-1"></i> Access
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="stats-tab" data-bs-toggle="tab"
+                    data-bs-target="#stats-pane" type="button" role="tab"
+                    aria-controls="stats-pane" aria-selected="false">
+                <i class="fas fa-chart-bar me-1"></i> Stats
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="export-tab" data-bs-toggle="tab"
+                    data-bs-target="#export-pane" type="button" role="tab"
+                    aria-controls="export-pane" aria-selected="false">
+                <i class="fas fa-file-export me-1"></i> Export
+            </button>
+        </li>
+    </ul>
+
+
+    <div class="tab-content" id="itemTabsContent">
+  
+        <div class="tab-pane fade show active" id="items-pane" role="tabpanel"
+             aria-labelledby="items-tab" tabindex="0">
+            {% include 'item/navTab/items.html.twig' with {
+                'form': form
+            } %}
+        </div>
+
+        <div class="tab-pane fade" id="chat-pane" role="tabpanel"
+             aria-labelledby="chat-tab" tabindex="0">
+            {% include 'item/navTab/chat.html.twig' %}
+        </div>
+
+        <div class="tab-pane fade" id="settings-pane" role="tabpanel"
+             aria-labelledby="settings-tab" tabindex="0">
+            {% include 'item/navTab/settings.html.twig' %}
+        </div>
+        
+        <div class="tab-pane fade" id="custom-id-pane" role="tabpanel"
+             aria-labelledby="custom-id-tab" tabindex="0">
+            {% include 'item/navTab/custom_id.html.twig' %}
+        </div>
+        
+        <div class="tab-pane fade" id="fields-pane" role="tabpanel"
+             aria-labelledby="fields-tab" tabindex="0">
+            {% include 'item/navTab/fields.html.twig' %}
+        </div>
+        
+        <div class="tab-pane fade" id="access-pane" role="tabpanel"
+             aria-labelledby="access-tab" tabindex="0">
+            {% include 'item/navTab/access.html.twig' %}
+        </div>
+        
+        <div class="tab-pane fade" id="stats-pane" role="tabpanel"
+             aria-labelledby="stats-tab" tabindex="0">
+            {% include 'item/navTab/stats.html.twig' %}
+        </div>
+        
+        <div class="tab-pane fade" id="export-pane" role="tabpanel"
+             aria-labelledby="export-tab" tabindex="0">
+            {% include 'item/navTab/export.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

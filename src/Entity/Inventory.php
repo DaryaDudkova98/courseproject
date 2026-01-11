@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -39,7 +40,7 @@ class Inventory implements AccessibleEntity
     #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'inventory')]
     private Collection $items;
 
-     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'inventories')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'inventories')]
     #[ORM\JoinTable(name: 'inventory_tags')]
     private Collection $tags;
 
@@ -54,12 +55,12 @@ class Inventory implements AccessibleEntity
     {
         return $this->id;
     }
-    
+
     public function getCategory(): ?Category
     {
         return $this->category;
     }
-    
+
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
@@ -81,7 +82,7 @@ class Inventory implements AccessibleEntity
         if ($this->owner !== null && $owner !== null && $this->owner !== $owner) {
             throw new \RuntimeException('Cannot change owner of inventory');
         }
-        
+
         $this->owner = $owner;
         return $this;
     }
@@ -91,7 +92,7 @@ class Inventory implements AccessibleEntity
         if ($this->owner !== null) {
             throw new \RuntimeException('Owner already initialized');
         }
-        
+
         $this->owner = $owner;
         return $this;
     }
@@ -106,7 +107,7 @@ class Inventory implements AccessibleEntity
         $this->public = $public;
         return $this;
     }
-    
+
     public function getWriters(): Collection
     {
         return $this->writers;
@@ -146,7 +147,6 @@ class Inventory implements AccessibleEntity
     public function removeItem(Item $item): static
     {
         if ($this->items->removeElement($item)) {
-            // set the owning side to null (unless already changed)
             if ($item->getInventory() === $this) {
                 $item->setInventory(null);
             }
@@ -174,11 +174,11 @@ class Inventory implements AccessibleEntity
     {
         return $this->title;
     }
-    
+
     public function setTitle(?string $title): static
     {
         $this->title = $title;
-        
+
         return $this;
     }
 
@@ -210,5 +210,4 @@ class Inventory implements AccessibleEntity
     {
         return $this->getName();
     }
-
 }

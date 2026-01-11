@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Item;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -55,6 +56,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $googleId = null;
 
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Item::class)]
+    private Collection $ownedItems;
+
+    #[ORM\ManyToMany(targetEntity: Item::class, mappedBy: 'writers')]
+    private Collection $writableItems;
+
+
     /**
      * @var Collection<int, Like>
      */
@@ -64,6 +72,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->item = new ArrayCollection();
+        $this->ownedItems = new ArrayCollection();
+        $this->writableItems = new ArrayCollection();
     }
 
 
@@ -233,6 +243,53 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getOwnedItems(): Collection
+    {
+        return $this->ownedItems;
+    }
+
+    public function addOwnedItem(Item $item): self
+    {
+        if (!$this->ownedItems->contains($item)) {
+            $this->ownedItems->add($item);
+            $item->setOwner($this);
+        }
+        return $this;
+    }
+
+    public function removeOwnedItem(Item $item): self
+    {
+        if ($this->ownedItems->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getOwner() === $this) {
+                $item->setOwner(null);
+            }
+        }
+        return $this;
+    }
+
+    public function getWritableItems(): Collection
+    {
+        return $this->writableItems;
+    }
+
+    public function addWritableItem(Item $item): self
+    {
+        if (!$this->writableItems->contains($item)) {
+            $this->writableItems->add($item);
+            $item->addWriter($this);
+        }
+        return $this;
+    }
+
+    public function removeWritableItem(Item $item): self
+    {
+        if ($this->writableItems->removeElement($item)) {
+            $item->removeWriter($this);
+        }
+        return $this;
+    }
+
     /**
      * @return Collection<int, Like>
      */
@@ -261,6 +318,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function canEditItem(Item $item): bool
+    {
+        return $this->ownsItem($item) || $this->canWriteItem($item);
+    }
+
+    public function ownsItem(Item $item): bool
+    {
+        return $this === $item->getOwner();
+    }
+
+    public function canWriteItem(Item $item): bool
+    {
+        return $item->getWriters()->contains($this);
     }
 
     public function __toString(): string

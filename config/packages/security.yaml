@@ -40,7 +40,7 @@ security:
 
             logout:
                 path: app_logout
-                target: /
+                target: app_login
 
             user_checker: App\Security\UserStatusChecker
 
