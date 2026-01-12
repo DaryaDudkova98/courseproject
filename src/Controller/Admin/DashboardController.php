@@ -2,12 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Item;
-use App\Entity\Inventory;
 use App\Entity\User;
-use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,7 +78,6 @@ class DashboardController extends AbstractDashboardController
     }
     }
 
-    
     #[Route('/admin/panel', name: 'admin_panel')]
     public function adminPanel(): Response
     {
@@ -90,5 +85,4 @@ class DashboardController extends AbstractDashboardController
             'page_title' => $this->translator->trans('admin_panel.title'),
         ]);
     }
-
 }

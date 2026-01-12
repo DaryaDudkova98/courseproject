@@ -96,10 +96,9 @@ class ItemCrudController extends AbstractCrudController
     $form->handleRequest($context->getRequest());
     
     if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager = $this->container->get('doctrine')->getManager();
-        $entityManager->persist($item);
-        $entityManager->flush();
-        
+        $this->entityManager->persist($item);
+        $this->entityManager->flush();
+
         $this->addFlash('success', 'Item created successfully!');
         
         return $this->redirectToRoute('admin', [

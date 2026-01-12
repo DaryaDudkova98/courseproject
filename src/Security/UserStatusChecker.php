@@ -19,7 +19,6 @@ class UserStatusChecker implements UserCheckerInterface
         if (User::STATUS_BLOCKED === $user->getStatus()) {
             throw new CustomUserMessageAuthenticationException('user.error.blocked');
         }
-        
     }
 
     public function checkPostAuth(UserInterface $user): void
@@ -31,12 +30,11 @@ class UserStatusChecker implements UserCheckerInterface
         if (User::STATUS_BLOCKED === $user->getStatus()) {
             throw new CustomUserMessageAccountStatusException('user.error.blocked');
         }
-        
+
 
         $user->setLastSeen(new \DateTimeImmutable());
-        
-        if ($user->isUnverified()) {
 
+        if ($user->isUnverified()) {
         }
     }
 }

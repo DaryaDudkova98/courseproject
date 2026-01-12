@@ -15,8 +15,7 @@ readonly class OAuthUserProvider implements OAuthAwareUserProviderInterface, Use
 {
     public function __construct(
         private UserRepository $userRepository
-    ) {
-    }
+    ) {}
 
     public function loadUserByOAuthUserResponse(UserResponseInterface $response): UserInterface
     {
@@ -25,18 +24,15 @@ readonly class OAuthUserProvider implements OAuthAwareUserProviderInterface, Use
         $email = $response->getEmail();
         $realName = $response->getRealName();
 
-        // ищем только по Google ID
         $user = null;
         if ($resourceOwnerName === 'google') {
             $user = $this->userRepository->findOneBy(['googleId' => $oauthId]);
         }
 
-        // fallback: поиск по email
         if (null === $user && $email) {
             $user = $this->userRepository->findOneBy(['email' => $email]);
         }
 
-        // если пользователя нет — создаём нового
         if (null === $user) {
             $user = new User();
             $user->setEmail($email ?? $oauthId . '@' . $resourceOwnerName . '.com');
@@ -47,7 +43,6 @@ readonly class OAuthUserProvider implements OAuthAwareUserProviderInterface, Use
             $user->setPassword('');
         }
 
-        // сохраняем Google ID
         if ($resourceOwnerName === 'google' && null === $user->getGoogleId()) {
             $user->setGoogleId($oauthId);
         }
@@ -58,14 +53,14 @@ readonly class OAuthUserProvider implements OAuthAwareUserProviderInterface, Use
     }
 
     public function refreshUser(UserInterface $user): UserInterface
-{
-    if (!$this->supportsClass(get_class($user))) {
-        throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
-    }
+    {
+        if (!$this->supportsClass(get_class($user))) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+        }
 
-    return $this->userRepository->findOneBy(['email' => $user->getUserIdentifier()])
-        ?? throw new UserNotFoundException();
-}
+        return $this->userRepository->findOneBy(['email' => $user->getUserIdentifier()])
+            ?? throw new UserNotFoundException();
+    }
 
 
     public function supportsClass(string $class): bool

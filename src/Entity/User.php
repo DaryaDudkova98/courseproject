@@ -260,7 +260,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeOwnedItem(Item $item): self
     {
         if ($this->ownedItems->removeElement($item)) {
-            // set the owning side to null (unless already changed)
             if ($item->getOwner() === $this) {
                 $item->setOwner(null);
             }
@@ -311,7 +310,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeItem(Like $item): static
     {
         if ($this->item->removeElement($item)) {
-            // set the owning side to null (unless already changed)
             if ($item->getLikedBy() === $this) {
                 $item->setLikedBy(null);
             }

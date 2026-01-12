@@ -251,14 +251,14 @@ class UserCrudController extends AbstractCrudController
         if ($user) {
             $roles = $user->getRoles();
             if (in_array('ROLE_ADMIN', $roles)) {
-                $newRoles = array_filter($roles, function($role) {
+                $newRoles = array_filter($roles, function ($role) {
                     return $role !== 'ROLE_ADMIN';
                 });
-                
+
                 if (empty($newRoles)) {
                     $newRoles = ['ROLE_USER'];
                 }
-                
+
                 $user->setRoles(array_values($newRoles));
                 $this->entityManager->flush();
                 $this->addFlash('success', sprintf('Admin privileges have been removed from user "%s"', $user->getEmail()));

@@ -48,7 +48,7 @@ class CardItem implements AccessibleEntity
         return $this;
     }
 
-    
+
     public function getOwner(): ?User
     {
         return $this->owner;

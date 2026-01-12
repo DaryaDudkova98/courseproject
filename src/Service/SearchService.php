@@ -6,9 +6,7 @@ use Elastic\Elasticsearch\Client;
 
 class SearchService
 {
-    public function __construct(private Client $client)
-    {
-    }
+    public function __construct(private Client $client) {}
 
     public function search(string $query): array
     {

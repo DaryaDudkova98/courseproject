@@ -42,21 +42,21 @@ class GoogleAuthenticator extends OAuth2Authenticator
         $accessToken = $this->fetchAccessToken($client);
 
         return new SelfValidatingPassport(
-            new UserBadge($accessToken->getToken(), function() use ($accessToken, $client) {
+            new UserBadge($accessToken->getToken(), function () use ($accessToken, $client) {
                 /** @var \League\OAuth2\Client\Provider\GoogleUser $googleUser */
                 $googleUser = $client->fetchUserFromToken($accessToken);
                 $email = $googleUser->getEmail();
                 $googleId = $googleUser->getId();
                 $name = $googleUser->getName();
-                
+
                 $user = $this->entityManager->getRepository(User::class)
                     ->findOneBy(['email' => $email]);
-                
+
                 if (!$user) {
                     $user = $this->entityManager->getRepository(User::class)
                         ->findOneBy(['googleId' => $googleId]);
                 }
-                
+
                 if (!$user) {
                     $user = new User();
                     $user->setEmail($email);
@@ -65,7 +65,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                     $user->setStatus(User::STATUS_ACTIVE);
                     $user->setIsVerified(true);
                     $user->setRoles(['ROLE_USER']);
-                    
+
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 } else {
@@ -78,7 +78,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                     }
                     $this->entityManager->flush();
                 }
-                
+
                 return $user;
             })
         );

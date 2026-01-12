@@ -1,5 +1,4 @@
 <?php
-// src/Form/CustomFieldType.php
 
 namespace App\Form;
 

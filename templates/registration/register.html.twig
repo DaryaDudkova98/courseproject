@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% if app is defined %}
+    {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+{% endif %}
+
 {% block title %}Registration{% endblock %}
 
 {% block body %}
@@ -11,43 +15,82 @@
             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
         {% endfor %}
 
-        {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+        {% if app is defined %}
+            {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+        {% else %}
+            <form method="post" action="{{ path('app_register') }}" novalidate>
+        {% endif %}
 
         <div class="form-floating mb-3">
-            {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Full Name', 'class': 'form-control'}}) }}
-            <label for="{{ registrationForm.name.vars.id }}">Full Name</label>
-            {{ form_errors(registrationForm.name) }}
+            {% if app is defined %}
+                {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Full Name', 'class': 'form-control'}}) }}
+                <label for="{{ registrationForm.name.vars.id }}">Full Name</label>
+                {{ form_errors(registrationForm.name) }}
+            {% else %}
+                <input type="text" name="registration_form[name]" class="form-control" id="name" placeholder="Full Name" required>
+                <label for="name">Full Name</label>
+            {% endif %}
         </div>
 
         <div class="form-floating mb-3">
-            {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Email', 'class': 'form-control'}}) }}
-            <label for="{{ registrationForm.email.vars.id }}">Email</label>
-            {{ form_errors(registrationForm.email) }}
+            {% if app is defined %}
+                {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Email', 'class': 'form-control'}}) }}
+                <label for="{{ registrationForm.email.vars.id }}">Email</label>
+                {{ form_errors(registrationForm.email) }}
+            {% else %}
+                <input type="email" name="registration_form[email]" class="form-control" id="email" placeholder="Email" required>
+                <label for="email">Email</label>
+            {% endif %}
         </div>
 
         <div class="form-floating mb-3">
-            {{ form_widget(registrationForm.plainPassword.first, {'attr': {'placeholder': 'Password', 'class': 'form-control'}}) }}
-            <label for="{{ registrationForm.plainPassword.first.vars.id }}">Password</label>
-            {{ form_errors(registrationForm.plainPassword.first) }}
+            {% if app is defined %}
+                {{ form_widget(registrationForm.plainPassword.first, {'attr': {'placeholder': 'Password', 'class': 'form-control'}}) }}
+                <label for="{{ registrationForm.plainPassword.first.vars.id }}">Password</label>
+                {{ form_errors(registrationForm.plainPassword.first) }}
+            {% else %}
+                <input type="password" name="registration_form[plainPassword][first]" class="form-control" id="password" placeholder="Password" required>
+                <label for="password">Password</label>
+            {% endif %}
         </div>
 
         <div class="form-floating mb-3">
-            {{ form_widget(registrationForm.plainPassword.second, {'attr': {'placeholder': 'Repeat Password', 'class': 'form-control'}}) }}
-            <label for="{{ registrationForm.plainPassword.second.vars.id }}">Repeat Password</label>
-            {{ form_errors(registrationForm.plainPassword.second) }}
+            {% if app is defined %}
+                {{ form_widget(registrationForm.plainPassword.second, {'attr': {'placeholder': 'Repeat Password', 'class': 'form-control'}}) }}
+                <label for="{{ registrationForm.plainPassword.second.vars.id }}">Repeat Password</label>
+                {{ form_errors(registrationForm.plainPassword.second) }}
+            {% else %}
+                <input type="password" name="registration_form[plainPassword][second]" class="form-control" id="password_confirm" placeholder="Repeat Password" required>
+                <label for="password_confirm">Repeat Password</label>
+            {% endif %}
         </div>
 
         <div class="form-check mb-3">
-            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-            <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">
-                I agree to the terms
-            </label>
-            {{ form_errors(registrationForm.agreeTerms) }}
+            {% if app is defined %}
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                <label class="form-check-label" for="{{ registrationForm.agreeTerms.vars.id }}">
+                    I agree to the terms
+                </label>
+                {{ form_errors(registrationForm.agreeTerms) }}
+            {% else %}
+                <input type="checkbox" name="registration_form[agreeTerms]" class="form-check-input" id="agreeTerms" required>
+                <label class="form-check-label" for="agreeTerms">
+                    I agree to the terms
+                </label>
+            {% endif %}
         </div>
 
         <button class="btn btn-primary w-100 py-2" type="submit">Register</button>
 
-        {{ form_end(registrationForm) }}
+        {% if app is defined %}
+            {{ form_end(registrationForm) }}
+        {% else %}
+
+            <input type="hidden"
+                name="registration_form[_token]"
+                value="{{ csrf_token('registration_form') }}">
+            </form>
+        {% endif %}
 
         <div class="d-flex justify-content-between mt-4 text-muted small">
             <div>

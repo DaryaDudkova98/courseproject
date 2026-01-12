@@ -16,11 +16,11 @@ class InventoryType extends AbstractType
     {
         $builder
             ->add('category', EntityType::class, [
-            'class' => Category::class,
-            'choice_label' => 'name',
-            'label' => 'Inventory Name (Category)',
-            'required' => true,
-        ])
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Inventory Name (Category)',
+                'required' => true,
+            ])
             ->add('description', CKEditorType::class, [
                 'label' => 'Description',
                 'required' => false,

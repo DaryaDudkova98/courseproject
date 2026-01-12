@@ -1,5 +1,4 @@
 <?php
-// src/Controller/Admin/CustomFieldCrudController.php
 
 namespace App\Controller\Admin;
 
@@ -37,39 +36,33 @@ class CustomFieldCrudController extends AbstractCrudController
         yield TextField::new('title')
             ->setLabel('Field Name')
             ->setHelp('Display name in forms');
-            
+
         yield TextareaField::new('description')
             ->setLabel('Description')
             ->setHelp('Tooltip text shown in forms')
             ->hideOnIndex();
-            
+
         yield ChoiceField::new('type')
             ->setLabel('Field Type')
             ->setChoices([
                 'Text (single line)' => 'text_single',
-                'Text (multi line)' => 'text_multi', 
+                'Text (multi line)' => 'text_multi',
                 'Number' => 'number',
                 'Document/Image' => 'document',
                 'True/False' => 'boolean',
             ])
             ->setHelp('Maximum 3 fields of each type');
-            
+
         yield BooleanField::new('showInTable')
             ->setLabel('Show in Table')
             ->setHelp('Display in inventory table');
-            
+
         yield IntegerField::new('sortOrder')
             ->setLabel('Order')
             ->hideOnIndex();
-            
+
         yield BooleanField::new('isActive')
             ->setLabel('Active')
             ->hideOnIndex();
-            
-        #if ($pageName === Crud::PAGE_INDEX) {
-            #yield DateTimeField::new('createdAt')
-                #->setLabel('Created')
-                #->setFormat('Y-m-d');
-        #}
     }
 }

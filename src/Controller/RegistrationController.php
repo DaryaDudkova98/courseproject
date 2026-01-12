@@ -21,65 +21,69 @@ use Psr\Log\LoggerInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
-    {
-    }
+    public function __construct(private EmailVerifier $emailVerifier) {}
 
     #[Route('/register', name: 'app_register')]
-public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, 
-    Security $security, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
-{
-    $user = new User();
-    $form = $this->createForm(RegistrationFormType::class, $user);
-    $form->handleRequest($request);
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        Security $security,
+        EntityManagerInterface $entityManager,
+        LoggerInterface $logger
+    ): Response {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        /** @var string $plainPassword */
-        $plainPassword = $form->get('plainPassword')->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var string $plainPassword */
+            $plainPassword = $form->get('plainPassword')->getData();
 
-        $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-        $user->setStatus(User::STATUS_UNVERIFIED);
-        $user->setRoles([]);
-        $user->setLocale('en');
-        $user->setTheme('auto');
-        $user->setIsVerified(false);
+            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->setStatus(User::STATUS_UNVERIFIED);
+            $user->setRoles([]);
+            $user->setLocale('en');
+            $user->setTheme('auto');
+            $user->setIsVerified(false);
 
-        $entityManager->persist($user);
-        $entityManager->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-        $logger->info('✅ User saved with ID: ' . $user->getId());
+            $logger->info('✅ User saved with ID: ' . $user->getId());
 
-        try {
-            $logger->info('📧 Attempting to send verification email to: ' . $user->getEmail());
-            
-            $email = (new TemplatedEmail())
-                ->from(new Address('dudkovadaryadmitrievna@gmail.com', 'support CourseProject'))
-                ->to($user->getEmail())  // убрал приведение к string
-                ->subject('Please Confirm your Email')
-                ->htmlTemplate('registration/confirmation_email.html.twig');
-            
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, $email);
-            
-            $logger->info('✅ Email sent successfully!');
-            $this->addFlash('success', 'Registration successful! Please check your email to confirm your account.');
-            
-        } catch (\Exception $e) {
-            $logger->error('❌ Email sending failed: ' . $e->getMessage());
-            $this->addFlash('warning', 'Registration successful, but we could not send confirmation email.');
+            try {
+                $logger->info('📧 Attempting to send verification email to: ' . $user->getEmail());
+
+                $email = (new TemplatedEmail())
+                    ->from(new Address('dudkovadaryadmitrievna@gmail.com', 'support CourseProject'))
+                    ->to($user->getEmail())
+                    ->subject('Please Confirm your Email')
+                    ->htmlTemplate('registration/confirmation_email.html.twig');
+
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user, $email);
+
+                $logger->info('✅ Email sent successfully!');
+                $this->addFlash('success', 'Registration successful! Please check your email to confirm your account.');
+            } catch (\Exception $e) {
+                $logger->error('❌ Email sending failed: ' . $e->getMessage());
+                $this->addFlash('warning', 'Registration successful, but we could not send confirmation email.');
+            }
+
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->redirectToRoute('app_login');
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
     }
 
-    return $this->render('registration/register.html.twig', [
-        'registrationForm' => $form->createView(),
-    ]);
-}
-
     #[Route('/verify/email', name: 'app_verify_email')]
-    public function verifyUserEmail(Request $request, TranslatorInterface $translator, 
-        UserRepository $userRepository, Security $security): Response
-    {
+    public function verifyUserEmail(
+        Request $request,
+        TranslatorInterface $translator,
+        UserRepository $userRepository,
+        Security $security
+    ): Response {
         $id = $request->query->get('id');
 
         if (null === $id) {
@@ -99,7 +103,6 @@ public function register(Request $request, UserPasswordHasherInterface $userPass
             return $this->redirectToRoute('app_login');
         }
 
-        // validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -108,7 +111,7 @@ public function register(Request $request, UserPasswordHasherInterface $userPass
         }
 
         $this->addFlash('success', '🎉 Your email has been verified successfully!');
-        
+
         try {
             $security->login($user, 'form_login', 'main');
             $this->addFlash('success', 'You are now logged in.');

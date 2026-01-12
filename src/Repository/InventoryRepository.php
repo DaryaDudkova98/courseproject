@@ -96,13 +96,13 @@ class InventoryRepository extends ServiceEntityRepository
             ->leftJoin('i.writers', 'w')
             ->addSelect('c', 'o', 'w')
             ->orderBy('i.id', 'DESC');
-        
+
         if ($user) {
             $forbiddenStatuses = ['block', 'delete', 'remove'];
             if (in_array($user->getStatus(), $forbiddenStatuses)) {
                 return [];
             }
-            
+
             if (!in_array('ROLE_ADMIN', $user->getRoles())) {
                 if ($user->getStatus() === 'active') {
 
@@ -113,18 +113,17 @@ class InventoryRepository extends ServiceEntityRepository
                             'w = :user'
                         )
                     )
-                    ->setParameter('user', $user);
+                        ->setParameter('user', $user);
                 } else {
 
                     return [];
                 }
             }
-
         } else {
 
             return [];
         }
-        
+
         return $qb->getQuery()->getResult();
     }
 
@@ -133,29 +132,29 @@ class InventoryRepository extends ServiceEntityRepository
         if (!$user) {
             return [];
         }
-        
+
         $forbiddenStatuses = ['block', 'delete', 'remove'];
         if (in_array($user->getStatus(), $forbiddenStatuses)) {
             return [];
         }
-        
+
         $qb = $this->createQueryBuilder('i')
             ->leftJoin('i.category', 'c')
             ->leftJoin('i.owner', 'o')
             ->leftJoin('i.writers', 'w')
             ->addSelect('c', 'o', 'w')
             ->orderBy('i.id', 'DESC');
-        
+
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
             return $qb->getQuery()->getResult();
         }
-        
+
         if ($user->getStatus() === 'active') {
             $qb->where('i.owner = :user')
-               ->setParameter('user', $user);
+                ->setParameter('user', $user);
             return $qb->getQuery()->getResult();
         }
-        
+
         return [];
     }
 
