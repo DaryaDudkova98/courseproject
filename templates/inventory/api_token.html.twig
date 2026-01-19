@@ -1,0 +1,58 @@
+{# templates/inventory/api_token.html.twig #}
+{% if field.value %}
+    <div class="api-token-container">
+        <h5>API Token для Odoo</h5>
+        
+        {% set inventory = ea.entity.instance %}
+        
+        <div class="input-group mb-3">
+            <input type="text" 
+                   class="form-control" 
+                   id="apiToken_{{ inventory.id }}"
+                   value="{{ field.value }}" 
+                   readonly
+                   style="font-family: monospace;">
+            <button class="btn btn-outline-secondary" 
+                    type="button" 
+                    onclick="copyToken('apiToken_{{ inventory.id }}')">
+                📋 Копировать
+            </button>
+        </div>
+        
+        {% if inventory.apiTokenGeneratedAt %}
+            <p class="text-muted">
+                <small>Создан: {{ inventory.apiTokenGeneratedAt|date('d.m.Y H:i') }}</small>
+            </p>
+        {% endif %}
+        
+        <div class="alert alert-info mt-3">
+            <strong>Использование в Odoo:</strong><br>
+            Добавьте в заголовок запроса:<br>
+            <code>Authorization: Bearer {{ field.value }}</code>
+        </div>
+    </div>
+    
+    <script>
+    function copyToken(elementId) {
+        const input = document.getElementById(elementId);
+        input.select();
+        document.execCommand('copy');
+        
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = '✓ Скопировано!';
+        button.classList.add('btn-success');
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('btn-success');
+        }, 2000);
+    }
+    </script>
+{% else %}
+    <div class="alert alert-warning">
+        <p><strong>⚠️ API токен не сгенерирован</strong></p>
+        <p>Для интеграции с Odoo необходим API токен.</p>
+        <p>Нажмите кнопку "Generate API Token" выше, чтобы создать токен.</p>
+    </div>
+{% endif %}

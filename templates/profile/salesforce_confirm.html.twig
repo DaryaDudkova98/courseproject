@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm Salesforce Update{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">⚠️ Confirm Salesforce Update</h4>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        A contact with email <strong>{{ new_contact_data.Email }}</strong> already exists in Salesforce.
+                    </p>
+                    
+                    <p>The following changes will be made:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Current Value</th>
+                                    <th>New Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for field, diff in differences %}
+                                <tr>
+                                    <td><strong>{{ field }}</strong></td>
+                                    <td class="text-danger">
+                                        {% if diff.old is empty %}
+                                            <em>Empty</em>
+                                        {% else %}
+                                            {{ diff.old }}
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-success">
+                                        {% if diff.new is empty %}
+                                            <em>Empty</em>
+                                        {% else %}
+                                            {{ diff.new }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Note:</strong> This will update the existing contact in Salesforce.
+                    </div>
+                    
+                    <form method="post" action="{{ path('salesforce_confirm_update') }}">
+                        <input type="hidden" name="app[user][id]" value="{{ app.user.id }}">
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="confirmCheck" required>
+                            <label class="form-check-label" for="confirmCheck">
+                                I understand that this will update the existing contact in Salesforce
+                            </label>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" name="confirmation" value="yes" class="btn btn-success">
+                                <i class="fas fa-check"></i> Yes, Update Contact
+                            </button>
+                            <button type="submit" name="confirmation" value="no" class="btn btn-danger">
+                                <i class="fas fa-times"></i> No, Cancel
+                            </button>
+                            <a href="{{ path('admin_profile_index', {entityId: app.user.id}) }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to Profile
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const confirmCheck = document.getElementById('confirmCheck');
+    if (!confirmCheck.checked) {
+        e.preventDefault();
+        alert('Please confirm that you understand this will update the existing contact.');
+    }
+});
+</script>
+{% endblock %}

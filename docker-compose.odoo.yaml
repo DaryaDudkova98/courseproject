@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: project-postgres-db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  odoo:
+    image: odoo:17.0
+    container_name: project-odoo-app
+    ports:
+      - "8069:8069"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Упрощаем environment - Odoo сам подхватит настройки из command
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./odoo-custom-addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+    command: >
+      --dev=reload
+      --db_host=project-postgres-db  # имя контейнера в сети Docker
+      --db_port=5432
+      --db_user=odoo
+      --db_password=odoo
+      --database=odoo_db  # важно: указываем конкретную БД
+      --without-demo=all
+    restart: unless-stopped
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:

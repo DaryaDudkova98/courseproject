@@ -14,6 +14,12 @@ security:
                 property: email
 
     firewalls:
+        api:
+            pattern: ^/api
+            stateless: true
+            lazy: true
+            security: false
+
         dev:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
@@ -21,14 +27,6 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-
-            # oauth:
-            #     resource_owners:
-            #         google: "/connect/google/check"
-            #     login_path: app_login
-            #     failure_path: app_login
-            #     oauth_user_provider:
-            #         service: App\Security\OAuthUserProvider
 
             form_login:
                 login_path: app_login

@@ -11,7 +11,11 @@ controllers:
     resource: ../src/Controller/
     type: attribute
 
-
+salesforce:
+    resource: '../src/Controller/SalesforceController.php'
+    type: attribute
+    prefix: /
+    
 #connect_google:
     #path: /connect/google
     #controller: App\Controller\SecurityController::connectGoogle

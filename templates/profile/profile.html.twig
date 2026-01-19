@@ -4,6 +4,15 @@
 
 {% block page_content %}
 
+{% if app.user %}
+    <div class="content-panel mb-4">
+                <div class="text-center">
+                    <a href="{{ path('salesforce_form') }}" class="btn btn-primary btn-lg">
+                        Export to SalesForce
+                    </a>
+                </div>
+{% endif %}
+
     <div class="content-panel">
         <div class="content-panel-header with-background">
             <h2 class="content-panel-title">

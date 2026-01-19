@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\InventoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: InventoryRepository::class)]
+#[ApiResource]
 class Inventory implements AccessibleEntity
 {
     #[ORM\Id]
@@ -44,11 +47,74 @@ class Inventory implements AccessibleEntity
     #[ORM\JoinTable(name: 'inventory_tags')]
     private Collection $tags;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true, unique: true)]
+    private ?string $apiToken = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $apiTokenGeneratedAt = null;
+
     public function __construct()
     {
         $this->writers = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->tags = new ArrayCollection();
+    }
+
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(?string $apiToken): static
+    {
+        $this->apiToken = $apiToken;
+        return $this;
+    }
+
+    public function generateApiToken(): static
+    {
+        $this->apiToken = bin2hex(random_bytes(16));
+        $this->apiTokenGeneratedAt = new \DateTime();
+        return $this;
+    }
+
+    public function isApiTokenVisibleToUser(?UserInterface $user): bool
+    {
+        if (!$user) {
+            return false;
+        }
+
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return true;
+        }
+
+        if ($user === $this->owner) {
+            return true;
+        }
+
+        foreach ($this->writers as $writer) {
+            if ($writer === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getApiTokenGeneratedAt(): ?\DateTimeInterface
+    {
+        return $this->apiTokenGeneratedAt;
+    }
+
+    public function setApiTokenGeneratedAt(?\DateTimeInterface $apiTokenGeneratedAt): static
+    {
+        $this->apiTokenGeneratedAt = $apiTokenGeneratedAt;
+        return $this;
+    }
+
+    public function hasApiToken(): bool
+    {
+        return !empty($this->apiToken);
     }
 
     public function getId(): ?int
@@ -209,5 +275,14 @@ class Inventory implements AccessibleEntity
     public function __toString(): string
     {
         return $this->getName();
+    }
+
+    public function getApiTokenGeneratedAtFormatted(): ?string
+    {
+        if (!$this->apiTokenGeneratedAt) {
+            return null;
+        }
+
+        return $this->apiTokenGeneratedAt->format('d.m.Y H:i');
     }
 }

@@ -5,10 +5,31 @@ namespace App\Entity;
 use App\Repository\ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ItemRepository::class)]
-#[ORM\Table(name: 'item')]
+#[ORM\HasLifecycleCallbacks]
+#[ApiResource(operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(),
+        new Delete(),
+        new Patch(),
+        
+        new Get(
+            uriTemplate: '/items/token/{token}',
+            uriVariables: ['token'],
+            requirements: ['token' => '[a-fA-F0-9-]{36}'],
+            name: 'get_item_by_token'
+        ),
+    ])]
 class Item implements AccessibleEntity
 {
     #[ORM\Id]
@@ -41,10 +62,32 @@ class Item implements AccessibleEntity
     #[ORM\JoinColumn(nullable: true)]
     private ?Inventory $inventory = null;
 
+    #[ORM\Column(length: 36, unique: true)]
+    private ?string $token = null;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
         $this->writers = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    public function generateToken(): void
+    {
+        if (null === $this->token) {
+            $this->token = Uuid::v4()->toRfc4122();
+        }
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): static
+    {
+        $this->token = $token;
+        return $this;
     }
 
     public function getId(): ?int
